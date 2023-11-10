@@ -62,7 +62,8 @@ h1{
     color: #fff9f4;
 }
 
-.add__btn{
+.add__btn,
+.delete__btn{
     font-size: var(--font);
     padding: 8px 5px;
     white-space: nowrap;
@@ -71,6 +72,22 @@ h1{
     background-color: #9b2935;
     border-radius: 5px;
     color: #e2e2e2;
+}
+
+.update__btn{
+    font-size: var(--font);
+    padding: 8px 5px;
+    margin-left: 5px;
+    white-space: nowrap;
+    width: 8em;
+    border: none;
+    background-color: #143d8d;
+    border-radius: 5px;
+    color: #e2e2e2;
+}
+
+.update__btn:hover{
+    background-color: #0a255c;
 }
 
 .add__btn:hover{
@@ -88,7 +105,7 @@ h1{
     box-shadow: 0px 35px 50px rgba( 0, 0, 0, 0.2 );
 }
 
-.fl__table {
+#fl__table {
     border-radius: 5px;
     font-size: 12px;
     font-weight: normal;
@@ -100,42 +117,34 @@ h1{
     background-color: white;
 }
 
-.fl__table td, .fl__table th {
+#fl__table td, #fl__table th {
     text-align: center;
     padding: 8px;
 }
 
-.fl__table td {
+#fl__table td {
     border-right: 1px solid #f8f8f8;
     font-size: 12px;
 }
 
-.fl__table thead th {
+#fl__table thead th {
     color: #ffffff;
     background: #9b2935;
 }
 
 
-.fl__table thead th:nth-child(odd) {
+#fl__table thead th:nth-child(odd) {
     color: #ffffff;
     background: #9b2935;
 }
 
-.fl__table tr:nth-child(even) {
+#fl__table tr:nth-child(even) {
     background: #F8F8F8;
 }
 
 .d{
     display: flex;
     justify-content: space-between;
-}
-
-.update__btn{
-    background-color: #143d8d;
-}
-
-.update__btn:hover{
-    background-color: #0a255c;
 }
 
 .title__container{
@@ -149,7 +158,7 @@ h1{
 }
 /* Responsive */
 @media (max-width: 767px) {
-    .fl__table {
+    #fl__table {
         display: block;
         width: 100%;
     }
@@ -162,21 +171,21 @@ h1{
         padding: 0 0 10px;
     }
 
-    .fl__table thead, .fl__table tbody, .fl__table thead th {
+    #fl__table thead, #fl__table tbody, #fl__table thead th {
         display: block;
     }
-    .fl__table thead th:last-child{
+    #fl__table thead th:last-child{
         border-bottom: none;
     }
-    .fl__table thead {
+    #fl__table thead {
         float: left;
     }
-    .fl__table tbody {
+    #fl__table tbody {
         width: auto;
         position: relative;
         overflow-x: auto;
     }
-    .fl__table td, .fl__table th {
+    #fl__table td, #fl__table th {
         padding: 20px .625em .625em .625em;
         height: 60px;
         vertical-align: middle;
@@ -187,27 +196,27 @@ h1{
         font-size: 13px;
         text-overflow: ellipsis;
     }
-    .fl__table thead th {
+    #fl__table thead th {
         text-align: left;
         border-bottom: 1px solid #f7f7f9;
     }
-    .fl__table tbody tr {
+    #fl__table tbody tr {
         display: table-cell;
     }
-    .fl__table tbody tr:nth-child(odd) {
+    #fl__table tbody tr:nth-child(odd) {
         background: none;
     }
-    .fl__table tr:nth-child(even) {
+    #fl__table tr:nth-child(even) {
         background: transparent;
     }
-    .fl__table tr td:nth-child(odd) {
+    #fl__table tr td:nth-child(odd) {
         background: #F8F8F8;
         border-right: 1px solid #E6E4E4;
     }
-    .fl__table tr td:nth-child(even) {
+    #fl__table tr td:nth-child(even) {
         border-right: 1px solid #E6E4E4;
     }
-    .fl__table tbody td {
+    #fl__table tbody td {
         display: block;
         text-align: center;
     }
