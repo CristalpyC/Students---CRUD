@@ -1,99 +1,135 @@
+// Expresiones regulares
+const regexName = /^[A-Za-z\s]+$/;
+const regexRegister = /^\d{8}$/;
+const regexLastname = /^[A-Za-záéíóúüñÁÉÍÓÚÜÑ\s'-]+$/;
 
-//Validación del formulario
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('data__container');
+    form.addEventListener('submit', ValidateForm);
+
+    const name = document.getElementById('name');
+    name.addEventListener('blur', function () {
+        if (!regexName.test(name.value)) {
+            nameError.textContent = 'Nombre inválido';
+        } else {
+            nameError.textContent = '';
+        }
+    });
+
+    const lastname = document.getElementById('lastname');
+    lastname.addEventListener('blur', function () {
+        if (!regexLastname.test(lastname.value)) {
+            lastnameError.textContent = 'Apellido inválido';
+        } else {
+            lastnameError.textContent = ''; 
+        }
+    });
+
+    const register = document.getElementById('register');
+    register.addEventListener('blur', function () {
+        if (!regexRegister.test(register.value)) {
+            registerError.textContent = 'Matrícula inválida';
+        } else {
+            registerError.textContent = ''; 
+        }
+    });
+
+    const grade = document.getElementById('grade');
+    grade.addEventListener('blur', function () {
+        if (isNaN(grade.value) || grade.value === '' || grade.value < 0 || grade.value > 100) {
+            gradeError.textContent = "La nota debe ser un número entre 0 y 100";
+        } else{
+            gradeError.textContent = '';
+        }
+    });
+});
+
 function ValidateForm(e) {
-    e.preventDefault(); // Evitar el envío del formulario y la recarga de la página
+    e.preventDefault();
 
-    //Elementos (manejo del DOM)
     const name = document.getElementById('name').value.trim();
     const lastname = document.getElementById('lastname').value.trim();
     const register = document.getElementById('register').value.trim();
     const grade = document.getElementById('grade').value.trim();
 
-    //Expresiones regulares
+    const nameError = document.getElementById('name__error');
+    const lastnameError = document.getElementById('lastname__error');
+    const registerError = document.getElementById('register__error');
+    const gradeError = document.getElementById('grade__error');
+
     const regexName = /^[A-Za-z\s]+$/;
-    const regexRegister = /^\d+$/; 
+    const regexRegister = /^\d{8}$/;
     const regexLastname = /^[A-Za-záéíóúüñÁÉÍÓÚÜÑ\s'-]+$/;
 
-    //Validez de los datos suministrados por el usuario
     if (!regexName.test(name)){
-        alert('Nombre inválido');
+        nameError.textContent = "Nombre inválido";
         return;
+    } else {
+        nameError.textContent = '';
     }
 
     if (!regexLastname.test(lastname)) {
-        alert('Apellido inválido');
+        lastnameError.textContent = "Apellido inválido";
         return;
+    } else{
+        lastnameError.textContent = '';
     }
 
     if (!regexRegister.test(register)) {
-        alert('Solo dígitos');
+        registerError.textContent = "Matrícula inválida";
         return;
+    } else {
+        registerError.textContent = '';
     }
+
     if (isNaN(grade) || grade === '' || grade < 0 || grade > 100) {
-        alert('La nota debe ser un número entre 0 y 100');
+        gradeError.textContent = "La nota debe ser un número entre 0 y 100";
         return;
+    } else{
+        gradeError.textContent = '';
+    }
 
-    }  
+    const tbody = document.querySelector("#fl__table tbody");
 
+    const fila = document.createElement("tr");
+    const celda1 = document.createElement("td");
+    const celda2 = document.createElement("td");
+    const celda3 = document.createElement("td");
+    const celda4 = document.createElement("td");
+    const celda5 = document.createElement("td");
 
-    //Agregando campos
-    // Selecciona el elemento tbody de la tabla con el id "tabla".
-    var tbody = document.querySelector("#fl__table tbody");
+    celda1.innerText = name;
+    celda2.innerText = lastname;
+    celda3.innerText = register;
+    celda4.innerText = grade;
 
-    // Crea una nueva fila y celdas para cada dato ingresado.
-    var fila = document.createElement("tr");
-    var celda1 = document.createElement("td");
-    var celda2 = document.createElement("td");
-    var celda3 = document.createElement("td");
-    var celda4 = document.createElement("td");
-    var celda5 = document.createElement("td");
-
-    // Asigna los valores de los campos de entrada a las celdas correspondientes.
-    celda1.textContent = name;
-    celda2.textContent = lastname;
-    celda3.textContent = register;
-    celda4.textContent = grade;
-
-     // Botónn eliminar: Eliminando campos
-    var btnEliminar = document.createElement("button");
+    const btnEliminar = document.createElement("button");
     btnEliminar.textContent = "Eliminar";
     btnEliminar.classList.add("delete__btn");
     btnEliminar.addEventListener("click", function () {
         tbody.removeChild(fila);
     });
 
-    //Boton editar: Editando campos
-    var btnEditar = document.createElement("button");
+    const btnEditar = document.createElement("button");
     btnEditar.textContent = "Editar";
     btnEditar.classList.add("update__btn");
     btnEditar.addEventListener("click", function () {
-        // Aquí puedes implementar la lógica para editar la fila si es necesario
         alert('Implementa la lógica para editar la fila aquí');
     });
- 
-     // Agrega los botones a la celda5
-     celda5.appendChild(btnEliminar);
-     celda5.appendChild(btnEditar);
 
-    // Agrega las celdas a la fila.
+    celda5.appendChild(btnEliminar);
+    celda5.appendChild(btnEditar);
+
     fila.appendChild(celda1);
     fila.appendChild(celda2);
     fila.appendChild(celda3);
     fila.appendChild(celda4);
     fila.appendChild(celda5);
 
-    // Agrega la fila a la tabla.
     tbody.appendChild(fila);
 
-    // Muestra la tabla estableciendo su estilo de visualización en "table".
-    document.getElementById("fl__table").style.display = "table";
+    document.getElementById("fl__table").classList.add("visible-table");
 
-    //Formulario en blanco, una vez presionemos "agregar"
     const form = document.getElementById('data__container');
     form.reset();
 }
-
-document.addEventListener('DOMContentLoaded', function() {
-    const form = document.getElementById('data__container');
-    form.addEventListener('submit', ValidateForm); //evento submit del formulario
-});

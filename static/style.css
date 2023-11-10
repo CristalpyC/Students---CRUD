@@ -49,7 +49,7 @@ h1{
     font-size: 2vmin;
     border: none;
     border-radius: 25px;
-    margin: 5px 0 15px 0; 
+    margin: 5px 0 5px 0; 
     width: 100%;
 }
 
@@ -62,7 +62,29 @@ h1{
     color: #fff9f4;
 }
 
-.add__btn,
+#name__error,
+#lastname__error,
+#register__error,
+#grade__error{
+    color: rgb(151, 12, 12);
+    margin-bottom: 8px;
+    font-size: 1.5vmin;
+    text-shadow: 0px 0px 10px white;
+    font-style: italic;
+}
+
+.add__btn{
+    font-size: var(--font);
+    padding: 8px 5px;
+    margin-top: 8px;
+    white-space: nowrap;
+    width: 8em;
+    border: none;
+    background-color: #9b2935;
+    border-radius: 5px;
+    color: #e2e2e2;
+}
+
 .delete__btn{
     font-size: var(--font);
     padding: 8px 5px;
@@ -162,6 +184,7 @@ h1{
         display: block;
         width: 100%;
     }
+    
     .table__container:before{
         content: "Desplazarse horizontalmente >";
         display: block;
@@ -193,9 +216,10 @@ h1{
         overflow-x: hidden;
         overflow-y: auto;
         width: 120px;
-        font-size: 13px;
+        font-size: 2vmin;
         text-overflow: ellipsis;
     }
+    
     #fl__table thead th {
         text-align: left;
         border-bottom: 1px solid #f7f7f9;
@@ -225,6 +249,7 @@ h1{
         width: 4vw;
         height: 3vh;
     }
+
 }
 
 @media screen and (max-width: 650px){
@@ -232,6 +257,18 @@ h1{
     .delete__btn{
         width: 8em;
         font-size: 1vmin;
+    }
+
+    #data__container,
+    #data__container input::placeholder{
+        font-size: 3vmin;
+    }
+
+    #name__error,
+    #lastname__error,
+    #register__error,
+    #grade__error{
+        font-size: 2.3vmin;
     }
 }
 
