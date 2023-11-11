@@ -3,6 +3,8 @@ const regexName = /^[A-Za-z\s]+$/;
 const regexRegister = /^\d{8}$/;
 const regexLastname = /^[A-Za-záéíóúüñÁÉÍÓÚÜÑ\s'-]+$/;
 
+let editingRow = null; // Variable para almacenar la fila que se está editando
+
 document.addEventListener('DOMContentLoaded', function() {
     const form = document.getElementById('data__container');
     form.addEventListener('submit', ValidateForm);
@@ -57,10 +59,6 @@ function ValidateForm(e) {
     const registerError = document.getElementById('register__error');
     const gradeError = document.getElementById('grade__error');
 
-    const regexName = /^[A-Za-z\s]+$/;
-    const regexRegister = /^\d{8}$/;
-    const regexLastname = /^[A-Za-záéíóúüñÁÉÍÓÚÜÑ\s'-]+$/;
-
     if (!regexName.test(name)){
         nameError.textContent = "Nombre inválido";
         return;
@@ -91,45 +89,94 @@ function ValidateForm(e) {
 
     const tbody = document.querySelector("#fl__table tbody");
 
-    const fila = document.createElement("tr");
-    const celda1 = document.createElement("td");
-    const celda2 = document.createElement("td");
-    const celda3 = document.createElement("td");
-    const celda4 = document.createElement("td");
-    const celda5 = document.createElement("td");
+    //Ariel
+    //Condicion para verificar cuando se le da click al boton editar, entra en la opcion de editar, por lo cual llama a la funcion updateStudent
+    if (editingRow) {
+        updateStudent();
 
-    celda1.innerText = name;
-    celda2.innerText = lastname;
-    celda3.innerText = register;
-    celda4.innerText = grade;
+    } else {
+        //Ariel
+        //En caso contrario sigue funcionando con normalidad agregando y eliminando 
+        const fila = document.createElement("tr");
+        const celda1 = document.createElement("td");
+        const celda2 = document.createElement("td");
+        const celda3 = document.createElement("td");
+        const celda4 = document.createElement("td");
+        const celda5 = document.createElement("td");
 
-    const btnEliminar = document.createElement("button");
-    btnEliminar.textContent = "Eliminar";
-    btnEliminar.classList.add("delete__btn");
-    btnEliminar.addEventListener("click", function () {
-        tbody.removeChild(fila);
-    });
+        celda1.innerText = name;
+        celda2.innerText = lastname;
+        celda3.innerText = register;
+        celda4.innerText = grade;
 
-    const btnEditar = document.createElement("button");
-    btnEditar.textContent = "Editar";
-    btnEditar.classList.add("update__btn");
-    btnEditar.addEventListener("click", function () {
-        alert('Implementa la lógica para editar la fila aquí');
-    });
+        const btnEliminar = document.createElement("button");
+        btnEliminar.textContent = "Eliminar";
+        btnEliminar.classList.add("delete__btn");
+        btnEliminar.addEventListener("click", function () {
+            tbody.removeChild(fila);
+        });
 
-    celda5.appendChild(btnEliminar);
-    celda5.appendChild(btnEditar);
+        const btnEditar = document.createElement("button");
+        btnEditar.textContent = "Editar";
+        btnEditar.classList.add("update__btn");
+        btnEditar.addEventListener("click", function () {
+            editStudent(fila);
+        });
 
-    fila.appendChild(celda1);
-    fila.appendChild(celda2);
-    fila.appendChild(celda3);
-    fila.appendChild(celda4);
-    fila.appendChild(celda5);
+        celda5.appendChild(btnEliminar);
+        celda5.appendChild(btnEditar);
 
-    tbody.appendChild(fila);
+        fila.appendChild(celda1);
+        fila.appendChild(celda2);
+        fila.appendChild(celda3);
+        fila.appendChild(celda4);
+        fila.appendChild(celda5);
 
-    document.getElementById("fl__table").classList.add("visible-table");
+        tbody.appendChild(fila);
 
+        document.getElementById("fl__table").classList.add("visible-table");
+
+        resetForm();
+    }
+}
+
+//Ariel
+//Funcion para insertar los valores a editar en los inputs 
+function editStudent(row) {
+    const cells = row.cells;
+
+    document.getElementById('name').value = cells[0].innerText;
+    document.getElementById('lastname').value = cells[1].innerText;
+    document.getElementById('register').value = cells[2].innerText;
+    document.getElementById('grade').value = cells[3].innerText;
+
+    editingRow = row;
+}
+
+//Ariel
+//Funcion para actualizar la fila, se toman los valores y luego con editingRow se actualizan
+function updateStudent() {
+    const name = document.getElementById('name').value.trim();
+    const lastname = document.getElementById('lastname').value.trim();
+    const register = document.getElementById('register').value.trim();
+    const grade = document.getElementById('grade').value.trim();
+
+    if (editingRow) {
+        editingRow.cells[0].innerText = name;
+        editingRow.cells[1].innerText = lastname;
+        editingRow.cells[2].innerText = register;
+        editingRow.cells[3].innerText = grade;
+
+        //Ariel
+        //Se llama la funcion para resetear o volver al modo agregar eliminar 
+        resetForm();
+    }
+}
+
+//Ariel
+//Funcion para resetear el form y para establecer de nuevo el editingRow null
+function resetForm() {
     const form = document.getElementById('data__container');
     form.reset();
+    editingRow = null;
 }
